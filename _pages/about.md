@@ -7,15 +7,17 @@ redirect_from:
   - /about.html
 ---
 
-This is the front page of a website that is powered by the [Academic Pages template](https://github.com/academicpages/academicpages.github.io) and hosted on GitHub pages. [GitHub pages](https://pages.github.com) is a free service in which websites are built and hosted from code and data stored in a GitHub repository, automatically updating when a new commit is made to the repository. This template was forked from the [Minimal Mistakes Jekyll Theme](https://mmistakes.github.io/minimal-mistakes/) created by Michael Rose, and then extended to support the kinds of content that academics have: publications, talks, teaching, a portfolio, blog posts, and a dynamically-generated CV. Incidentally, these same features make it a great template for anyone that needs to show off a professional template!
+Liu Wanlin, male, a member of the Communist Party of China, from Dalian, Liaoning Province, is currently an academic master's student majoring in Computer Science and Technology at the School of Computer Science and Engineering, Northeastern University. He has developed comprehensively in academic research, party building, social practice, and other fields.
+Abundant achievements in scientific and technological innovation: Published 1 CCF-C conference paper as the first author, applied for 3 software copyrights, and won 51st place in the China Merchants Bank Digital Finance Training Camp nationwide; Has won several first-class scholarships and other honorary awards from Northeastern University. Outstanding Party and Youth League Ability: Appointed as the Secretary of the Fifth Party Branch of the 2025 Master's Program at the School of Computer Science and Engineering, Northeastern University of the Communist Party of China. Responsible for implementing branch affairs and assisting in overall planning of the college's party affairs. Has won more than ten honorary titles such as Outstanding Graduate of Ordinary Higher Education Institutions in Liaoning Province. Rich practical experience: Led the establishment of the Northeastern University Dawn Practice Team, and led the team to win national honors and awards ten times. Joined the Northeastern University Graduate Teaching Support Team and guided students to win provincial and municipal awards twice.
+刘万霖，男，中共党员，辽宁大连，现为东北大学计算机科学与工程学院计算机科学与技术专业学术硕士研究生，在学术科研、党团建设、社会实践等领域全面发展。
+科创成果丰硕：以第一作者身份发表CCF-C会议长文1篇，申请软件著作权3项，招商银行数字金融训练营斩获全国第51名；荣获东北大学一等奖学金等荣誉奖项数次。党团能力突出：任中共东北大学计算机科学与工程学院2025级硕士第五党支部书记：负责支部事务落实，协助统筹学院党务工作。荣获辽宁省普通高等学校优秀毕业生等荣誉称号十余次。实践经历丰富：牵头成立东北大学曙光实践团，带领团队荣获国家级荣誉奖项十次。加入东北大学研究生支教团，指导学生荣获省市级奖项两次。
 
- You can fork [this template](https://github.com/academicpages/academicpages.github.io) right now, modify the configuration and Markdown files, add your own PDFs and other content, and have your own site for free, with no ads!
-
-Research Interests
+Research Interests · 研究方向
 ======
-Remote Sensing Image
-Change Detection
-Semantic Segmentation
+Remote Sensing Image · 遥感影像
+Change Detection · 变化检测 
+Semantic Segmentation · 语义分割
+
 
 Getting started
 ======
