@@ -30,9 +30,12 @@ Abundant achievements in scientific and technological innovation: Published 1 CC
 
 SiViTSEUNet-CD : Integrating Dynamic Channel Attention with ViT for Change Detection
 
-IEEE并行与分布式处理国际会议（ISPA 2025）
+**Wanlin Liu**, Yuxuan He, Yubin Bao*，Fangling Leng, Tiancheng Zhang, Ge Yu
+
+The 23rd IEEE International Symposium on Parallel and Distributed Processing with Applications (ISPA), Oral Presentation, 2025
 
 IEEE出版、EI检索、CCF-C（计算机体系结构/并行与分布计算/存储系统）
+
 
 荣誉奖项 · Honors and Awards
 ======
