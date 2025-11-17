@@ -26,14 +26,22 @@ Abundant achievements in scientific and technological innovation: Published 1 CC
 语义分割 · Semantic Segmentation
 
 
-Getting started
+荣誉奖项 · Honors and Awards
 ======
-1. Register a GitHub account if you don't have one and confirm your e-mail (required!)
-1. Fork [this template](https://github.com/academicpages/academicpages.github.io) by clicking the "Use this template" button in the top right. 
-1. Go to the repository's settings (rightmost item in the tabs that start with "Code", should be below "Unwatch"). Rename the repository "[your GitHub username].github.io", which will also be your website's URL.
-1. Set site-wide configuration and create content & metadata (see below -- also see [this set of diffs](https://archive.is/3TPas) showing what files were changed to set up [an example site](https://getorg-testacct.github.io) for a user with the username "getorg-testacct")
-1. Upload any files (like PDFs, .zip files, etc.) to the files/ directory. They will appear at https://[your GitHub username].github.io/files/example.pdf.  
-1. Check status by going to the repository settings, in the "GitHub pages" section
+
+1、辽宁省普通高等学校优秀毕业生
+
+2、东北大学硕士研究生一等奖学金
+
+3、东北大学优秀本科生二等奖学金
+
+4、东北大学优秀团干部标兵
+
+5、东北大学优秀学生干部
+
+6、东北大学优秀社会实践个人
+
+7、东北大学五星志愿者
 
 Site-wide configuration
 ------
