@@ -1,6 +1,6 @@
 ---
 permalink: /
-title: "Self-Introduction"
+title: "个人介绍 · Self-Introduction"
 author_profile: true
 redirect_from: 
   - /about/
