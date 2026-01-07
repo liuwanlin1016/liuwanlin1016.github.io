@@ -46,7 +46,7 @@
         }
         
         .right-column {
-            width: 90%;
+            width: 85%;
             padding-left: 15%; /* 为右侧内容留出左侧列的空间 */
             margin-left: 5vw;
         }
@@ -58,13 +58,14 @@
         }
         
         .profile-image {
-            width: 180px;
-            height: 180px;
+            width: 80%; /* 改为百分比宽度 */
+            height: auto; /* 高度自动调整以保持比例 */
             border-radius: 50%;
             object-fit: cover;
             border: 4px solid #e0e0e0;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             margin: 0 auto 20px;
+            display: block; /* 确保图片居中 */
         }
         
         .profile-name {
@@ -97,8 +98,9 @@
         .contact-icon {
             color: #000000;
             margin-right: 10px;
-            font-size: 1.2vh;
-            width: 20px;
+            font-size: 2vh; /* 增大图标尺寸 */
+            width: 24px; /* 增加宽度 */
+            text-align: center; /* 居中对齐 */
         }
         
         .contact-text {
@@ -229,7 +231,7 @@
         }
         
         .education-date {
-            font-size: 1.5vh;
+            font-size: 1.6vh;
             color: #757575;
         }
         
@@ -327,7 +329,7 @@
         }
         
         .conference-date {
-            font-size: 1.5vh;
+            font-size: 1.6vh;
             color: #757575;
             margin-bottom: 10px;
         }
@@ -372,13 +374,13 @@
         }
         
         .project-date {
-            font-size: 1.5vh;
+            font-size: 1.6vh;
             color: #757575;
             margin-bottom: 10px;
         }
         
         .project-description {
-            font-size: 1.5vh;
+            font-size: 1.8vh;
             color: #555;
             line-height: 1.6;
         }
@@ -400,6 +402,7 @@
             font-size: 1.2vh;
             opacity: 0.7;
         }
+        
         /* 响应式调整 */
         @media (max-width: 1200px) {
             .blog-image {
@@ -407,7 +410,7 @@
             }
         }
         
-        @media (max-width: 900px) {
+        @media (max-width: 992px) {
             .container {
                 flex-direction: column;
             }
@@ -416,14 +419,22 @@
                 width: 100%;
                 margin-bottom: 30px;
                 padding: 20px;
+                position: static !important; /* 取消固定定位，以便在小屏幕上正常显示 */
+                height: auto;
+                top: 0;
+                left: 0;
+                position: relative; /* 恢复正常的文档流定位 */
             }
             
             .right-column {
                 width: 100%;
                 padding-left: 0;
+                margin-left: 0;
             }
             
-            .blog-item {
+            .blog-item,
+            .conference-item,
+            .project-item {
                 flex-direction: column;
             }
             
@@ -437,10 +448,135 @@
                 padding-left: 0;
             }
             
-            .conference-item,
-            .project-item {
-                flex-direction: column;
+            .conference-content,
+            .project-content {
+                width: 100%;
             }
+        }
+        
+        /* 针对平板设备的优化 */
+        @media (max-width: 768px) {
+            .notes-container,
+            .education-container {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .note-card,
+            .education-card {
+                min-width: 80%;
+                width: 80%;
+                padding: 15px;
+            }
+            
+            .section-title {
+                font-size: 2vh;
+            }
+            
+            body {
+                padding-top: 1vh;
+            }
+            
+            .conference-date,
+            .project-date {
+                font-size: 1.6vh;
+            }
+        }
+        
+        /* 针对手机设备的优化 */
+        @media (max-width: 576px) {
+            .container {
+                padding: 0 2vw;
+            }
+            
+            .profile-name {
+                font-size: 3vh;
+            }
+            
+            .profile-bio {
+                font-size: 1.4vh;
+            }
+            
+            .contact-text {
+                font-size: 1.6vh;
+            }
+            
+            .section-title {
+                font-size: 1.8vh;
+                padding-bottom: 5px;
+            }
+            
+            .note-card,
+            .education-card {
+                min-width: 95%;
+                width: 95%;
+            }
+            
+            .blog-title,
+            .conference-title,
+            .project-title {
+                font-size: 2vh;
+            }
+            
+            .blog-description,
+            .conference-description,
+            .project-description {
+                font-size: 1.4vh;
+            }
+            
+            .note-title {
+                font-size: 1.6vh;
+            }
+            
+            .education-title {
+                font-size: 1.6vh;
+            }
+            
+            .education-major {
+                font-size: 1.5vh;
+            }
+            
+            .notes-section,
+            .education-section,
+            .conferences-section,
+            .projects-section,
+            .blogs-section {
+                padding: 15px;
+            }
+            
+            .contact-item {
+                padding: 6px 0;
+            }
+            
+            .profile-container {
+                margin-bottom: 20px;
+            }
+            
+            .profile-image {
+                width: 150px;
+                height: 150px;
+            }
+        }
+        
+        .copy-notification {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: #4CAF50;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 4px;
+            z-index: 1000;
+            opacity: 0;
+            transition: opacity 0.3s;
+            text-align: center;
+            min-width: 200px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .copy-notification.show {
+            opacity: 1;
         }
     </style>
     <script>
