@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人博客</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 2.5vh;
+            color: #333;
+        }
+        
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1600px;
+            padding: 0 5vw;
+        }
+        
+        .left-column {
+            width: 15%;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .right-column {
+            width: 85%;
+            padding-left: 30px;
+        }
+        
+        /* 左侧模块1 - 头像和简介 */
+        .profile-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .profile-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #e0e0e0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin: 0 auto 20px;
+        }
+        
+        .profile-name {
+            font-size: 1.8vh;
+            font-weight: bold;
+            color: #0057b7;
+            margin-bottom: 10px;
+        }
+        
+        .profile-bio {
+            font-size: 1.2vh;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 25px;
+        }
+        
+        /* 左侧联系信息 */
+        .contact-info {
+            list-style: none;
+            margin-top: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 8px 0;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .contact-item:last-child {
+            border-bottom: none;
+        }
+        
+        .contact-icon {
+            color: #0057b7;
+            margin-right: 10px;
+            font-size: 1.2vh;
+            width: 20px;
+        }
+        
+        .contact-text {
+            font-size: 1.2vh;
+            color: #333;
+            transition: all 0.3s ease;
+        }
+        
+        .contact-item:hover {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            transform: translateX(5px);
+        }
+        
+        .contact-item:hover .contact-text {
+            color: #0057b7;
+        }
+        
+        /* 右侧模块3 - 我的笔记 */
+        .notes-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .section-title {
+            font-size: 2.5vh;
+            color: #0057b7;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #0057b7;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #00a8e8;
+        }
+        
+        .notes-container {
+            display: flex;
+            gap: 40px;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+        
+        .note-card {
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            min-width: 280px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .note-card:hover {
+            border: 1px solid #00a8e8;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+        }
+        
+        .note-title {
+            font-size: 1.5vh;
+            color: #0057b7;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .note-date {
+            font-size: 1vh;
+            color: #757575;
+        }
+        
+        /* 右侧模块4 - 最近的博客 */
+        .blogs-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+        }
+        
+        .blog-item {
+            display: flex;
+            margin-bottom: 35px;
+            border-bottom: 1px dashed #e0e0e0;
+            padding-bottom: 25px;
+        }
+        
+        .blog-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .blog-image {
+            flex: 0 0 500px;
+            height: 120px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+        }
+        
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .blog-item:hover .blog-image img {
+            transform: scale(1.05);
+        }
+        
+        .blog-content {
+            flex: 1;
+            padding-left: 25px;
+        }
+        
+        .blog-title {
+            font-size: 2.5vh;
+            color: #0057b7;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        
+        .blog-description {
+            font-size: 1.5vh;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        /* 响应式调整 */
+        @media (max-width: 1200px) {
+            .blog-image {
+                flex: 0 0 350px;
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .left-column {
+                width: 100%;
+                margin-bottom: 30px;
+                padding: 20px;
+            }
+            
+            .right-column {
+                width: 100%;
+                padding-left: 0;
+            }
+            
+            .blog-item {
+                flex-direction: column;
+            }
+            
+            .blog-image {
+                flex: 0 0 100%;
+                width: 100%;
+                margin-bottom: 15px;
+            }
+            
+            .blog-content {
+                padding-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 左侧列：导航区域 -->
+        <div class="left-column">
+            <!-- 模块1：头像和简介 -->
+            <div class="profile-container">
+                <img src="https://img.alicdn.com/imgextra/i2/O1CN01VjWLAB21Zb4eAatD8_!!6000000006999-2-tps-928-1232.png" alt="刘万霖" class="profile-image">
+                <h1 class="profile-name">刘万霖</h1>
+                <p class="profile-bio">Short biography for the left-hand sidebar</p>
+            </div>
+            
+            <!-- 联系信息 -->
+            <ul class="contact-info">
+                <li class="contact-item">
+                    <i class="fas fa-map-marker-alt contact-icon"></i>
+                    <span class="contact-text">中国·沈阳</span>
+                </li>
+                <li class="contact-item">
+                    <i class="fas fa-university contact-icon"></i>
+                    <span class="contact-text">东北大学</span>
+                </li>
+                <li class="contact-item">
+                    <i class="fas fa-envelope contact-icon"></i>
+                    <span class="contact-text">Email</span>
+                </li>
+                <li class="contact-item">
+                    <i class="fab fa-github contact-icon"></i>
+                    <span class="contact-text">GitHub</span>
+                </li>
+                <li class="contact-item">
+                    <i class="fab fa-bluesky contact-icon"></i>
+                    <span class="contact-text">Bluesky</span>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- 右侧列：内容区域 -->
+        <div class="right-column">
+            <!-- 模块3：我的笔记 -->
+            <section class="notes-section">
+                <h2 class="section-title">我的笔记</h2>
+                <div class="notes-container">
+                    <div class="note-card">
+                        <p class="note-title">生活中的无形画布</p>
+                        <p class="note-date">日期：2024.10.5</p>
+                    </div>
+                    <div class="note-card">
+                        <p class="note-title">塑造AI的魔法</p>
+                        <p class="note-date">日期：2024.10.10</p>
+                    </div>
+                    <div class="note-card">
+                        <p class="note-title">园艺中生命哲学的呼吸感</p>
+                        <p class="note-date">日期：2024.10.15</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 模块4：最近的博客 -->
+            <section class="blogs-section">
+                <h2 class="section-title">最近博客</h2>
+                
+                <article class="blog-item">
+                    <div class="blog-image">
+                        <img src="https://img.alicdn.com/imgextra/i2/O1CN01VjWLAB21Zb4eAatD8_!!6000000006999-2-tps-928-1232.png" alt="健康生活">
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">活力的源泉：健康生活的艺术与科学</h3>
+                        <p class="blog-description">健康生活不仅仅是关于身体的活力，它是一种全面的生活方式，涉及到身体、心灵和精神的和谐统一。在这个快节奏的世界中，我们如何找到保持活力的秘诀？首先，我们需要理解健康生活的艺术——这包括了营养均衡的饮食、规律的运动...</p>
+                    </div>
+                </article>
+                
+                <article class="blog-item">
+                    <div class="blog-image">
+                        <img src="https://img.alicdn.com/imgextra/i1/O1CN01n5bYVC1LISOAf9gSM_!!6000000001276-2-tps-1232-928.png" alt="内心宁静">
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">在风景与人群中寻找内心的宁静角落</h3>
+                        <p class="blog-description">在喧嚣的城市中，我们常常感到内心的喧哗和不安。然而，即使在最繁忙的街道和最拥挤的人群中，我们也能找到一片属于自己的宁静角落。这需要我们获得一种内在的力量，这是一种能够在外部世界的纷扰中保持内心平静的能力...</p>
+                    </div>
+                </article>
+                
+                <article class="blog-item">
+                    <div class="blog-image">
+                        <img src="https://img.alicdn.com/imgextra/i2/O1CN01Fi9JNQ1e59aJxBRji_!!6000000003819-2-tps-1232-928.png" alt="艺术记录">
+                    </div>
+                    <div class="blog-content">
+                        <h3 class="blog-title">记录艺术中时间与记忆的交汇</h3>
+                        <p class="blog-description">艺术是时间的容器，它捕捉并保存了特定时刻的情感和体验。每一件艺术作品都是艺术家与时间对话的结果，是过去、现在和未来交汇的点。在艺术中记录时间与记忆的交汇，是一种深刻的文化实践，它让我们得以窥见历史的深度和人性的复杂性...</p>
+                    </div>
+                </article>
+            </section>
+        </div>
+    </div>
+</body>
+</html>

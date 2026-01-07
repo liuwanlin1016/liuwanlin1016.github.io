@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>个人博客</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: #f8f9fa;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding-top: 2.5vh;
+            color: #333;
+        }
+        
+        .container {
+            display: flex;
+            width: 100%;
+            max-width: 1600px;
+            padding: 0 5vw;
+        }
+        
+        .left-column {
+            width: 15%;
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            position: fixed;
+            top: 20px;
+            left: 5vw;
+            height: calc(100vh - 40px);
+            overflow-y: auto;
+        }
+        
+        .right-column {
+            width: 90%;
+            padding-left: 15%; /* 为右侧内容留出左侧列的空间 */
+            margin-left: 5vw;
+        }
+        
+        /* 左侧模块1 - 头像和简介 */
+        .profile-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .profile-image {
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 4px solid #e0e0e0;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin: 0 auto 20px;
+        }
+        
+        .profile-name {
+            font-size: 3.6vh;
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 10px;
+            font-family: 'Xingkai SC', 'KaiTi', '楷体', 'STKaiti', serif;
+        }
+        
+        /* 左侧联系信息 */
+        .contact-info {
+            list-style: none;
+            margin-top: 20px;
+        }
+        
+        .contact-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 8px 0;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid #f0f0f0;
+        }
+        
+        .contact-item:last-child {
+            border-bottom: none;
+        }
+        
+        .contact-icon {
+            color: #000000;
+            margin-right: 10px;
+            font-size: 1.2vh;
+            width: 20px;
+        }
+        
+        .contact-text {
+            font-size: 2vh; /* 增大字体大小 */
+            color: #333;
+            transition: all 0.3s ease;
+            font-family: 'Xingkai SC', 'KaiTi', '楷体', 'STKaiti', 'Arial', sans-serif;
+        }
+        
+        .contact-item:hover {
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            transform: translateX(5px);
+        }
+        
+        .contact-item:hover .contact-text {
+            color: #000000;
+        }
+        
+        /* 右侧模块3 - 我的笔记 */
+        .notes-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .section-title {
+            font-size: 2.5vh;
+            color: #000000;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #000000;
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 40px;
+            height: 2px;
+            background-color: #00a8e8;
+        }
+        
+        .notes-container {
+            display: flex;
+            gap: 40px;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+        
+        .note-card {
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            min-width: 280px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .note-card:hover {
+            border: 1px solid #00a8e8;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+        }
+        
+        .note-title {
+            font-size: 1.5vh;
+            color: #000000;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .note-date {
+            font-size: 1vh;
+            color: #757575;
+        }
+        
+        /* 教育经历部分 */
+        .education-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .education-container {
+            display: flex;
+            gap: 40px;
+            overflow-x: auto;
+            padding: 10px 0;
+        }
+        
+        .education-card {
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            min-width: 300px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .education-card:hover {
+            border: 1px solid #00a8e8;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+        }
+        
+        .education-title {
+            font-size: 2.1vh;
+            color: #000000;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+        
+        .education-major {
+            font-size: 1.8vh;
+            color: #555;
+            margin-bottom: 8px;
+        }
+        
+        .education-date {
+            font-size: 1.5vh;
+            color: #757575;
+        }
+        
+        /* 右侧模块4 - 最近的博客 */
+        .blogs-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+        }
+        
+        .blog-item {
+            display: flex;
+            margin-bottom: 35px;
+            border-bottom: 1px dashed #e0e0e0;
+            padding-bottom: 25px;
+        }
+        
+        .blog-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .blog-image {
+            flex: 0 0 500px;
+            height: 120px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+        }
+        
+        .blog-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .blog-item:hover .blog-image img {
+            transform: scale(1.05);
+        }
+        
+        .blog-content {
+            flex: 1;
+            padding-left: 25px;
+        }
+        
+        .blog-title {
+            font-size: 2.5vh;
+            color: #000000;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        
+        .blog-description {
+            font-size: 1.5vh;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        /* 期刊会议部分 */
+        .conferences-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .conference-item {
+            display: flex;
+            margin-bottom: 35px;
+            border-bottom: 1px dashed #e0e0e0;
+            padding-bottom: 25px;
+        }
+        
+        .conference-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .conference-content {
+            flex: 1;
+        }
+        
+        .conference-title {
+            font-size: 2.5vh;
+            color: #000000;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        
+        .conference-date {
+            font-size: 1.5vh;
+            color: #757575;
+            margin-bottom: 10px;
+        }
+        
+        .conference-description {
+            font-size: 1.8vh;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        /* 学术项目部分 */
+        .projects-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            border: 1px solid #e0e0e0;
+        }
+        
+        .project-item {
+            display: flex;
+            margin-bottom: 35px;
+            border-bottom: 1px dashed #e0e0e0;
+            padding-bottom: 25px;
+        }
+        
+        .project-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+        
+        .project-content {
+            flex: 1;
+        }
+        
+        .project-title {
+            font-size: 2.5vh;
+            color: #000000;
+            margin-bottom: 12px;
+            line-height: 1.4;
+        }
+        
+        .project-date {
+            font-size: 1.5vh;
+            color: #757575;
+            margin-bottom: 10px;
+        }
+        
+        .project-description {
+            font-size: 1.5vh;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        /* 可点击标题样式 */
+        .clickable-title {
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .clickable-title:hover {
+            color: #00a8e8;
+            transform: translateX(5px);
+        }
+        
+        .clickable-title::after {
+            content: " \2197";
+            font-size: 1.2vh;
+            opacity: 0.7;
+        }
+        /* 响应式调整 */
+        @media (max-width: 1200px) {
+            .blog-image {
+                flex: 0 0 350px;
+            }
+        }
+        
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .left-column {
+                width: 100%;
+                margin-bottom: 30px;
+                padding: 20px;
+            }
+            
+            .right-column {
+                width: 100%;
+                padding-left: 0;
+            }
+            
+            .blog-item {
+                flex-direction: column;
+            }
+            
+            .blog-image {
+                flex: 0 0 100%;
+                width: 100%;
+                margin-bottom: 15px;
+            }
+            
+            .blog-content {
+                padding-left: 0;
+            }
+            
+            .conference-item,
+            .project-item {
+                flex-direction: column;
+            }
+        }
+    </style>
+    <script>
+        function copyToClipboard(text) {
+            // 创建一个临时的textarea元素
+            const textarea = document.createElement('textarea');
+            textarea.value = text;
+            
+            // 设置为不可见
+            textarea.style.position = 'fixed';
+            textarea.style.left = '0';
+            textarea.style.top = '0';
+            textarea.style.opacity = '0';
+            
+            // 添加到文档中
+            document.body.appendChild(textarea);
+            
+            // 选中并复制文本
+            textarea.focus();
+            textarea.select();
+            
+            try {
+                // 执行复制命令
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    // 显示复制成功的提示
+                    showNotification('已复制: ' + text);
+                } else {
+                    // 如果复制失败，显示错误信息
+                    showNotification('复制失败');
+                }
+            } catch (err) {
+                console.error('无法复制文本: ', err);
+                showNotification('复制失败');
+            }
+            
+            // 移除临时元素
+            document.body.removeChild(textarea);
+        }
+        
+        function showNotification(message) {
+            // 检查是否已存在通知元素
+            let notification = document.querySelector('.copy-notification');
+            
+            if (!notification) {
+                // 创建通知元素
+                notification = document.createElement('div');
+                notification.className = 'copy-notification';
+                document.body.appendChild(notification);
+            }
+            
+            // 设置通知内容
+            notification.textContent = message;
+            
+            // 显示通知
+            notification.classList.add('show');
+            
+            // 2秒后隐藏通知
+            setTimeout(() => {
+                notification.classList.remove('show');
+            }, 2000);
+        }
+        
+        function handleConferenceClick(paperUrl) {
+            const result = confirm('是否要跳转到论文详情页面？');
+            if (result) {
+                // 这里可以替换为实际的论文链接
+                if(paperUrl) {
+                    window.open(paperUrl, '_blank');
+                } else {
+                    alert('即将跳转到论文详情页面（此处为演示，实际链接待设置）');
+                }
+            }
+        }
+        
+        function handleAttachmentClick(attachmentPath, projectName) {
+            // 获取文件扩展名以确定文件类型
+            const fileExtension = attachmentPath.split('.').pop().toLowerCase();
+            let fileType = '文件';
+            let actionText = '打开';
+            
+            if (fileExtension === 'pdf') {
+                fileType = 'PDF文档';
+                actionText = '查看';
+            } else if (['jpg', 'jpeg', 'png', 'gif', 'bmp'].includes(fileExtension)) {
+                fileType = '图片';
+                actionText = '查看';
+            }
+            
+            const result = confirm(`是否要${actionText} ${projectName} 的相关证明材料？\n\n文件类型: ${fileType}\n文件名: ${attachmentPath}`);
+            if (result) {
+                // 构造附件URL（实际使用时请替换为真实路径）
+                const fullAttachmentUrl = attachmentPath;
+                
+                // 根据文件类型决定打开方式
+                if (fileExtension === 'pdf') {
+                    // PDF文件在新窗口中打开
+                    window.open(fullAttachmentUrl, '_blank');
+                } else if (['jpg', 'jpeg', 'png', 'gif', 'bmp'].includes(fileExtension)) {
+                    // 图片文件在新窗口中打开
+                    window.open(fullAttachmentUrl, '_blank');
+                } else {
+                    // 其他文件类型也尝试打开
+                    window.open(fullAttachmentUrl, '_blank');
+                }
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+        <!-- 左侧列：导航区域 -->
+        <div class="left-column">
+            <!-- 模块1：头像和简介 -->
+            <div class="profile-container">
+                <img src="image.jpg" alt="刘万霖" class="profile-image">
+                <h1 class="profile-name">刘万霖</h1>
+            </div>
+            
+            <!-- 联系信息 -->
+            <ul class="contact-info">
+                <li class="contact-item">
+                    <i class="fas fa-map-marker-alt contact-icon"></i>
+                    <span class="contact-text">中国·沈阳</span>
+                </li>
+                <li class="contact-item">
+                    <i class="fas fa-university contact-icon"></i>
+                    <span class="contact-text">东北大学</span>
+                </li>
+                <li class="contact-item">
+                    <i class="fas fa-birthday-cake contact-icon"></i>
+                    <span class="contact-text">2001年10月</span>
+                </li>
+                <li class="contact-item">
+                    <i class="fas fa-phone contact-icon"></i>
+                    <span class="contact-text" onclick="copyToClipboard('17615186916')">17615186916</span>
+                </li>
+                <li class="contact-item">
+                    <i class="fas fa-envelope contact-icon"></i>
+                    <span class="contact-text" onclick="copyToClipboard('2858756976@qq.com')">2858756976@qq.com</span>
+                </li>
+
+            </ul>
+        </div>
+        
+        <!-- 右侧列：内容区域 -->
+        <div class="right-column">
+            <!-- 模块1：教育经历 -->
+            <section class="education-section">
+                <h2 class="section-title">教育经历</h2>
+                <div class="education-container">
+                    <div class="education-card">
+                        <p class="education-title">东北大学 | 硕士研究生</p>
+                        <p class="education-major">计算机科学与技术</p>
+                        <p class="education-date">2024.09 — 2028.06</p>
+                    </div>
+                    <div class="education-card">
+                        <p class="education-title">东北大学 | 工科学士</p>
+                        <p class="education-major">通信工程</p>
+                        <p class="education-date">2020.09 — 2024.06</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 模块6：期刊会议 -->
+            <section class="conferences-section">
+                <h2 class="section-title">期刊会议</h2>
+                
+                <article class="conference-item">
+                    <div class="conference-content">
+                        <h3 class="conference-title clickable-title" onclick="handleConferenceClick('https://ieeexplore.ieee.org/document/11245333')">SiViTSEUNet-CD : Integrating Dynamic Channel Attention with ViT for Change Detection</h3>
+                        <p class="conference-date">2025.06 — 2025.10</p>
+                        <p class="conference-description">
+                            <strong>Published in: </strong>2025 IEEE International Symposium on Parallel and Distributed Processing with Applications (ISPA)<br>
+                            <strong>Liu, Wanlin(Oral Presentation)</strong> and He, Yuxuan and Bao, Yubin and Leng, Fangling and Zhang, Tiancheng and Yu, Ge <br>
+                            IEEE出版、EI检索、CCF-C（计算机体系结构/并行与分布计算/存储系统）
+                        </p>
+                    </div>
+                </article>
+            </section>
+            
+            <!-- 模块7：学术项目 -->
+            <section class="projects-section">
+                <h2 class="section-title">学术项目</h2>
+                
+                <article class="project-item">
+                    <div class="project-content">
+                        <h3 class="project-title clickable-title" onclick="handleAttachmentClick('101.jpg', '招商银行第9季数字金融训练营')">招商银行第9季数字金融训练营</h3>
+                        <p class="project-date">2025.04 — 2025.05</p>
+                        <p class="project-description">
+                            项目背景：基于LLaMA-Factory框架与LoRA方法微调Deepseek-Coder<br>
+                            项目任务：优化基础模型在Java代码补全（FIM）场景下的能力准确率。<br>
+                            荣获招商银行第9季数字金融训练营·AI赛道·全国第51名。
+                        </p>
+                    </div>
+                </article>
+                
+                <article class="project-item">
+                    <div class="project-content">
+                        <h3 class="project-title">中国移动"梧桐鸿鹄"2025年研学夏令营</h3>
+                        <p class="project-date">2025.06 — 2025.08</p>
+                        <p class="project-description">
+                            项目背景：复杂手写体签名识别能力研究，如复杂连笔、非规范字迹识别。<br>
+                            项目任务：基于全场景文字识别大模型PP-OCRv5，形成准确性分析报告。
+                        </p>
+                    </div>
+                </article>
+                
+                <article class="project-item">
+                    <div class="project-content">
+                        <h3 class="project-title">基于深度学习的遥感影像变化检测系统</h3>
+                        <p class="project-date">2023.11 — 2024.06</p>
+                        <p class="project-description">
+                            集成SNUNet-CD与P2V-CD双模型优势，提升变化检测精度与泛化能力。<br>
+                            基于Flask 搭建轻量化RESTful API接口，实现前后端分离与实时处理。<br>
+                            实现高精度遥感影像变化检测，取得软件著作权认证（2024SR0578273）。
+                        </p>
+                    </div>
+                </article>
+                
+                <article class="project-item">
+                    <div class="project-content">
+                        <h3 class="project-title">辽宁省社会科学基金项目</h3>
+                        <p class="project-date">2023.10 — 2024.03</p>
+                        <p class="project-description">
+                            项目主题：历史虚无主义思潮对高校思想政治理论课的影响与对策研究<br>
+                            主要负责：数据处理分析及其可视化（批准号：L17BKS003）。
+                        </p>
+                    </div>
+                </article>
+            </section>
+        </div>
+    </div>
+</body>
+</html>
