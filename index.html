@@ -231,8 +231,182 @@
         }
         
         .education-date {
-            font-size: 1.6vh;
+            font-size: 1.2vh;
             color: #757575;
+        }
+        
+        /* 荣誉奖项部分 */
+        .awards-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+            border: 1px solid #e0e0e0;
+            overflow: hidden; /* 隐藏溢出内容 */
+        }
+        
+        .awards-container-wrapper {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .awards-container {
+            display: flex;
+            padding: 10px 0;
+            overflow-x: auto; /* 添加水平滚动条 */
+            overflow-y: hidden;
+            scrollbar-width: thin; /* Firefox */
+            scrollbar-color: #0057b7 #e0e0e0; /* Firefox */
+            scroll-behavior: smooth;
+            position: relative;
+        }
+        
+        /* Webkit browsers (Chrome, Safari) 滚动条样式 */
+        .awards-container::-webkit-scrollbar {
+            height: 8px; /* 滚动条高度 */
+        }
+        
+        .awards-container::-webkit-scrollbar-track {
+            background: #e0e0e0;
+            border-radius: 4px;
+        }
+        
+        .awards-container::-webkit-scrollbar-thumb {
+            background: #0057b7;
+            border-radius: 4px;
+        }
+        
+        .awards-container::-webkit-scrollbar-thumb:hover {
+            background: #00a8e8;
+        }
+        
+        .awards-track {
+            display: flex;
+            gap: 40px;
+            width: 300%; /* 设置为300%以容纳三组内容 */
+            animation: scroll 30s linear infinite; /* 添加滚动动画 */
+        }
+        
+        .awards-track:hover {
+            animation-play-state: paused; /* 悬停时暂停动画 */
+        }
+        
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-33.333%); /* 滚动到三分之一的位置，即第二组内容的开始 */
+            }
+        }
+        
+        .award-card {
+            background-color: #f8f9fa;
+            border-radius: 12px;
+            padding: 10px; /* 减少内边距 */
+            min-width: 280px;
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #e0e0e0;
+            text-align: center;
+            flex-shrink: 0; /* 防止卡片收缩 */
+        }
+        
+        .award-card:hover {
+            border: 1px solid #00a8e8;
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.12);
+        }
+        
+        .award-image-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 8px;
+            width: 100%;
+        }
+        
+        .award-image {
+            width: 100%;
+            height: 250px; /* 增加图片高度 */
+            object-fit: cover;
+            display: block;
+            cursor: pointer; /* 添加指针样式表示可点击 */
+        }
+        
+        .award-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(0, 0, 0, 0.85);
+            color: white;
+            padding: 25px 10px 15px;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            font-size: 1.3vh;
+            line-height: 1.4;
+        }
+        
+        .award-card:hover .award-overlay {
+            transform: translateY(0);
+        }
+        
+        .award-description {
+            font-size: 1.4vh;
+            margin: 0;
+            line-height: 1.4;
+        }
+        
+        /* 荣誉奖项图片放大模态框样式 */
+        .award-modal {
+            display: none; /* 默认隐藏 */
+            position: fixed;
+            z-index: 1001; /* 在最顶层显示 */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.9); /* 半透明背景 */
+            backdrop-filter: blur(5px); /* 背景虚化效果 */
+            -webkit-backdrop-filter: blur(5px); /* Safari兼容 */
+        }
+        
+        .award-modal-content {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            max-height: 80%;
+            border-radius: 8px;
+        }
+        
+        #modalCaption {
+            margin: auto;
+            display: block;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            color: #f0f0f0;
+            padding: 10px 0;
+            font-size: 1.6vh;
+        }
+        
+        .close {
+            position: absolute;
+            top: 15px;
+            right: 35px;
+            color: #f0f0f0;
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1002;
+        }
+        
+        .close:hover,
+        .close:focus {
+            color: #bbb;
+            text-decoration: none;
         }
         
         /* 右侧模块4 - 最近的博客 */
@@ -457,16 +631,17 @@
         /* 针对平板设备的优化 */
         @media (max-width: 768px) {
             .notes-container,
-            .education-container {
+            .education-container,
+            .awards-container {
                 flex-direction: column;
                 align-items: center;
             }
             
             .note-card,
-            .education-card {
+            .education-card,
+            .award-card {
                 min-width: 80%;
                 width: 80%;
-                padding: 15px;
             }
             
             .section-title {
@@ -479,7 +654,7 @@
             
             .conference-date,
             .project-date {
-                font-size: 1.6vh;
+                font-size: 1.4vh;
             }
         }
         
@@ -507,7 +682,8 @@
             }
             
             .note-card,
-            .education-card {
+            .education-card,
+            .award-card {
                 min-width: 95%;
                 width: 95%;
             }
@@ -538,6 +714,7 @@
             
             .notes-section,
             .education-section,
+            .awards-section,
             .conferences-section,
             .projects-section,
             .blogs-section {
@@ -578,7 +755,368 @@
         .copy-notification.show {
             opacity: 1;
         }
+        
+        .awards-section {
+            background-color: white;
+            border-radius: 10px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            margin-bottom: 40px;
+            border: 1px solid #e0e0e0;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .awards-container-wrapper {
+            display: flex;
+            align-items: center;
+            position: relative;
+        }
+        
+        /* 图片放大模态框 */
+        /* 荣誉奖项图片放大模态框样式 */
+        .award-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            padding-top: 100px;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.9);
+            /* 移除了 backdrop-filter: blur(5px); 和 -webkit-backdrop-filter: blur(5px); */
+        }
+
+        .award-modal-content {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            max-height: 80vh;
+            border-radius: 8px;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 0.3s ease;
+            object-fit: contain; /* 确保图片完整显示，不裁剪 */
+        }
+
+        #modalCaption {
+            margin: auto;
+            display: block;
+            max-width: 90%;
+            text-align: center;
+            color: #f0f0f0;
+            padding: 10px 0;
+            font-size: 1.6vh;
+        }
+
+        .award-modal .close {
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            color: #f1f1f1;
+            font-size: 50px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1001;
+            text-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+        }
+
+        .award-modal .close:hover,
+        .award-modal .close:focus {
+            color: #bbb;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .awards-container {
+            flex: 1;
+            overflow: hidden;
+            padding: 10px 0;
+            position: relative;
+        }
+        
+        .scroll-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.9);
+            border: 1px solid #e0e0e0;
+            font-size: 24px;
+            color: #0057b7;
+            cursor: pointer;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 10px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .awards-section:hover .scroll-btn {
+            opacity: 1;
+        }
+        
+        .scroll-left {
+            left: 0;
+        }
+        
+        .scroll-right {
+            right: 0;
+        }
+        
+        .scroll-btn:hover {
+            background-color: white;
+            color: #00a8e8;
+        }
+        
+        /* 实现真正的无缝滚动 */
+        .awards-track {
+            display: flex;
+            gap: 40px;
+            min-width: 200%; /* 创建足够空间用于无缝循环 */
+            animation: scroll 30s linear infinite; /* 滚动速度调整为30秒 */
+        }
+        
+        .awards-track:hover {
+            animation-play-state: paused;
+        }
+        
+        @keyframes scroll {
+            0% {
+                transform: translateX(0);
+            }
+            100% {
+                transform: translateX(-50%); /* 滚动到一半的位置，即复制内容的开始 */
+            }
+        }
     </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 左侧列：导航区域 -->
+        <div class="left-column">
+            <!-- 模块1：头像和简介 -->
+            <div class="profile-container">
+                <img src="image.jpg" alt="刘万霖" class="profile-image">
+                <h1 class="profile-name">刘万霖</h1>
+            </div>
+            
+            <!-- 联系信息 -->
+            <ul class="contact-info">
+                <li class="contact-item">
+                    <i class="fas fa-map-marker-alt contact-icon"></i>
+                    <span class="contact-text">中国·沈阳</span>
+                </li>
+                <li class="contact-item">
+                    <i class="fas fa-university contact-icon"></i>
+                    <span class="contact-text">东北大学</span>
+                </li>
+                <li class="contact-item">
+                    <i class="fas fa-birthday-cake contact-icon"></i>
+                    <span class="contact-text">2001年10月</span>
+                </li>
+                <li class="contact-item">
+                    <i class="fas fa-phone contact-icon"></i>
+                    <span class="contact-text" onclick="copyToClipboard('17615186916')">17615186916</span>
+                </li>
+                <li class="contact-item">
+                    <i class="fas fa-envelope contact-icon"></i>
+                    <span class="contact-text" onclick="copyToClipboard('2858756976@qq.com')">2858756976@qq.com</span>
+                </li>
+
+            </ul>
+        </div>
+        
+        <!-- 右侧列：内容区域 -->
+        <div class="right-column">
+            <!-- 模块1：教育经历 -->
+            <section class="education-section">
+                <h2 class="section-title">教育经历</h2>
+                <div class="education-container">
+                    <div class="education-card">
+                        <p class="education-title">东北大学 | 硕士研究生</p>
+                        <p class="education-major">计算机科学与技术</p>
+                        <p class="education-date">2024.09 — 2028.06</p>
+                    </div>
+                    <div class="education-card">
+                        <p class="education-title">东北大学 | 工科学士</p>
+                        <p class="education-major">通信工程</p>
+                        <p class="education-date">2020.09 — 2024.06</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- 模块8：荣誉奖项 -->
+            <section class="awards-section">
+                <h2 class="section-title">荣誉奖项</h2>
+                <div class="awards-container-wrapper">
+                    <button class="scroll-btn scroll-left" id="scrollLeftBtn">‹</button>
+                    <div class="awards-container" id="awardsContainer">
+                        <div class="awards-track">
+                            <!-- 第一组奖项卡片 -->
+                            <div class="award-card">
+                                <div class="award-image-wrapper">
+                                    <img src="./Award/东北大学本科生奖学金.png" alt="东北大学本科生奖学金" class="award-image" onclick="showAwardImage(this)">
+                                    <div class="award-overlay">
+                                        <p class="award-description">2023年度优秀学生奖，表彰学业成绩优异，综合表现突出</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="award-card">
+                                <div class="award-image-wrapper">
+                                    <img src="./Award/辽宁省优秀毕业生证书（本科）.png" alt="辽宁省优秀毕业生证书" class="award-image" onclick="showAwardImage(this)">
+                                    <div class="award-overlay">
+                                        <p class="award-description">全国大学生计算机创新大赛一等奖，项目为AI图像识别系统</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="award-card">
+                                <div class="award-image-wrapper">
+                                    <img src="./Award/东北大学本科生奖学金.png" alt="国家奖学金" class="award-image" onclick="showAwardImage(this)">
+                                    <div class="award-overlay">
+                                        <p class="award-description">国家奖学金，奖励学习成绩优异，科研能力突出的学生</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="award-card">
+                                <div class="award-image-wrapper">
+                                    <img src="./Award/辽宁省优秀毕业生证书（本科）.png" alt="ACM程序设计竞赛" class="award-image" onclick="showAwardImage(this)">
+                                    <div class="award-overlay">
+                                        <p class="award-description">ACM国际大学生程序设计竞赛区域赛银奖</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="award-card">
+                                <div class="award-image-wrapper">
+                                    <img src="./Award/辽宁省优秀毕业生证书（本科）.png" alt="创新大赛一等奖" class="award-image" onclick="showAwardImage(this)">
+                                    <div class="award-overlay">
+                                        <p class="award-description">全国大学生计算机创新大赛一等奖，项目为AI图像识别系统</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="award-card">
+                                <div class="award-image-wrapper">
+                                    <img src="./Award/东北大学本科生奖学金.png" alt="国家奖学金" class="award-image" onclick="showAwardImage(this)">
+                                    <div class="award-overlay">
+                                        <p class="award-description">国家奖学金，奖励学习成绩优异，科研能力突出的学生</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="award-card">
+                                <div class="award-image-wrapper">
+                                    <img src="./Award/辽宁省优秀毕业生证书（本科）.png" alt="ACM程序设计竞赛" class="award-image" onclick="showAwardImage(this)">
+                                    <div class="award-overlay">
+                                        <p class="award-description">ACM国际大学生程序设计竞赛区域赛银奖</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <button class="scroll-btn scroll-right" id="scrollRightBtn">›</button>
+                </div>
+            </section>
+            
+            <!-- 模块6：期刊会议 -->
+            <section class="conferences-section">
+                <h2 class="section-title">期刊会议</h2>
+                
+                <article class="conference-item">
+                    <div class="conference-content">
+                        <h3 class="conference-title clickable-title" onclick="handleConferenceClick('https://ieeexplore.ieee.org/document/11245333')">SiViTSEUNet-CD : Integrating Dynamic Channel Attention with ViT for Change Detection</h3>
+                        <p class="conference-date">2025.06 — 2025.10</p>
+                        <p class="conference-description">
+                            <strong>Published in: </strong>2025 IEEE International Symposium on Parallel and Distributed Processing with Applications (ISPA)<br>
+                            <strong>Liu, Wanlin(Oral Presentation)</strong> and He, Yuxuan and Bao, Yubin and Leng, Fangling and Zhang, Tiancheng and Yu, Ge <br>
+                            IEEE出版、EI检索、CCF-C（计算机体系结构/并行与分布计算/存储系统）
+                        </p>
+                    </div>
+                </article>
+            </section>
+            
+            <!-- 模块7：学术项目 -->
+            <section class="projects-section">
+                <h2 class="section-title">学术项目</h2>
+                
+                <article class="project-item">
+                    <div class="project-content">
+                        <h3 class="project-title clickable-title" onclick="handleAttachmentClick('101.jpg', '招商银行第9季数字金融训练营')">招商银行第9季数字金融训练营</h3>
+                        <p class="project-date">2025.04 — 2025.05</p>
+                        <p class="project-description">
+                            项目背景：基于LLaMA-Factory框架与LoRA方法微调Deepseek-Coder<br>
+                            项目任务：优化基础模型在Java代码补全（FIM）场景下的能力准确率。<br>
+                            荣获招商银行第9季数字金融训练营·AI赛道·全国第51名。
+                        </p>
+                    </div>
+                </article>
+                
+                <article class="project-item">
+                    <div class="project-content">
+                        <h3 class="project-title">中国移动"梧桐鸿鹄"2025年研学夏令营</h3>
+                        <p class="project-date">2025.06 — 2025.08</p>
+                        <p class="project-description">
+                            项目背景：复杂手写体签名识别能力研究，如复杂连笔、非规范字迹识别。<br>
+                            项目任务：基于全场景文字识别大模型PP-OCRv5，形成准确性分析报告。
+                        </p>
+                    </div>
+                </article>
+                
+                <article class="project-item">
+                    <div class="project-content">
+                        <h3 class="project-title">基于深度学习的遥感影像变化检测系统</h3>
+                        <p class="project-date">2023.11 — 2024.06</p>
+                        <p class="project-description">
+                            集成SNUNet-CD与P2V-CD双模型优势，提升变化检测精度与泛化能力。<br>
+                            基于Flask 搭建轻量化RESTful API接口，实现前后端分离与实时处理。<br>
+                            实现高精度遥感影像变化检测，取得软件著作权认证（2024SR0578273）。
+                        </p>
+                    </div>
+                </article>
+                
+                <article class="project-item">
+                    <div class="project-content">
+                        <h3 class="project-title">辽宁省社会科学基金项目</h3>
+                        <p class="project-date">2023.10 — 2024.03</p>
+                        <p class="project-description">
+                            项目主题：历史虚无主义思潮对高校思想政治理论课的影响与对策研究<br>
+                            主要负责：数据处理分析及其可视化（批准号：L17BKS003）。
+                        </p>
+                    </div>
+                </article>
+            </section>
+        </div>
+    </div>
+
+    <!-- 荣誉奖项图片放大模态框 -->
+    <div id="awardModal" class="award-modal">
+        <span class="close" onclick="closeAwardModal()">&times;</span>
+        <img class="award-modal-content" id="modalImage">
+        <div id="modalCaption"></div>
+    </div>
+
     <script>
         function copyToClipboard(text) {
             // 创建一个临时的textarea元素
@@ -684,131 +1222,128 @@
                 }
             }
         }
-    </script>
-</head>
-<body>
-    <div class="container">
-        <!-- 左侧列：导航区域 -->
-        <div class="left-column">
-            <!-- 模块1：头像和简介 -->
-            <div class="profile-container">
-                <img src="image.jpg" alt="刘万霖" class="profile-image">
-                <h1 class="profile-name">刘万霖</h1>
-            </div>
-            
-            <!-- 联系信息 -->
-            <ul class="contact-info">
-                <li class="contact-item">
-                    <i class="fas fa-map-marker-alt contact-icon"></i>
-                    <span class="contact-text">中国·沈阳</span>
-                </li>
-                <li class="contact-item">
-                    <i class="fas fa-university contact-icon"></i>
-                    <span class="contact-text">东北大学</span>
-                </li>
-                <li class="contact-item">
-                    <i class="fas fa-birthday-cake contact-icon"></i>
-                    <span class="contact-text">2001年10月</span>
-                </li>
-                <li class="contact-item">
-                    <i class="fas fa-phone contact-icon"></i>
-                    <span class="contact-text" onclick="copyToClipboard('17615186916')">17615186916</span>
-                </li>
-                <li class="contact-item">
-                    <i class="fas fa-envelope contact-icon"></i>
-                    <span class="contact-text" onclick="copyToClipboard('2858756976@qq.com')">2858756976@qq.com</span>
-                </li>
-
-            </ul>
-        </div>
         
-        <!-- 右侧列：内容区域 -->
-        <div class="right-column">
-            <!-- 模块1：教育经历 -->
-            <section class="education-section">
-                <h2 class="section-title">教育经历</h2>
-                <div class="education-container">
-                    <div class="education-card">
-                        <p class="education-title">东北大学 | 硕士研究生</p>
-                        <p class="education-major">计算机科学与技术</p>
-                        <p class="education-date">2024.09 — 2028.06</p>
-                    </div>
-                    <div class="education-card">
-                        <p class="education-title">东北大学 | 工科学士</p>
-                        <p class="education-major">通信工程</p>
-                        <p class="education-date">2020.09 — 2024.06</p>
-                    </div>
-                </div>
-            </section>
+        // 初始化滚动速度
+        document.addEventListener('DOMContentLoaded', function() {
+            const awardsTrack = document.querySelector('.awards-track');
+            const awardsContainer = document.getElementById('awardsContainer');
+            const scrollLeftBtn = document.getElementById('scrollLeftBtn');
+            const scrollRightBtn = document.getElementById('scrollRightBtn');
             
-            <!-- 模块6：期刊会议 -->
-            <section class="conferences-section">
-                <h2 class="section-title">期刊会议</h2>
-                
-                <article class="conference-item">
-                    <div class="conference-content">
-                        <h3 class="conference-title clickable-title" onclick="handleConferenceClick('https://ieeexplore.ieee.org/document/11245333')">SiViTSEUNet-CD : Integrating Dynamic Channel Attention with ViT for Change Detection</h3>
-                        <p class="conference-date">2025.06 — 2025.10</p>
-                        <p class="conference-description">
-                            <strong>Published in: </strong>2025 IEEE International Symposium on Parallel and Distributed Processing with Applications (ISPA)<br>
-                            <strong>Liu, Wanlin(Oral Presentation)</strong> and He, Yuxuan and Bao, Yubin and Leng, Fangling and Zhang, Tiancheng and Yu, Ge <br>
-                            IEEE出版、EI检索、CCF-C（计算机体系结构/并行与分布计算/存储系统）
-                        </p>
-                    </div>
-                </article>
-            </section>
+            // 为了实现无缝滚动，复制原始内容
+            const originalContent = awardsTrack.innerHTML;
+            awardsTrack.innerHTML = originalContent + originalContent + originalContent; // 复制三次内容确保无缝滚动
             
-            <!-- 模块7：学术项目 -->
-            <section class="projects-section">
-                <h2 class="section-title">学术项目</h2>
+            // 设置动画持续时间
+            if(awardsTrack) {
+                awardsTrack.style.animationDuration = '30s'; // 设置为30秒，让滚动更慢更平滑
+            }
+            
+            // 按钮滚动功能
+            let scrollInterval;
+            
+            // 向左滚动
+            scrollLeftBtn.addEventListener('mousedown', function() {
+                clearInterval(scrollInterval);
+                scrollInterval = setInterval(function() {
+                    awardsContainer.scrollBy({left: -31, behavior: 'smooth'}); // 调整滚动距离为31px
+                }, 20);
+            });
+            
+            // 向右滚动
+            scrollRightBtn.addEventListener('mousedown', function() {
+                clearInterval(scrollInterval);
+                scrollInterval = setInterval(function() {
+                    awardsContainer.scrollBy({left: 31, behavior: 'smooth'}); // 调整滚动距离为31px
+                }, 20);
+            });
+            
+            // 停止滚动（当鼠标按钮释放或离开按钮时）
+            function stopScrolling() {
+                clearInterval(scrollInterval);
+            }
+            
+            scrollLeftBtn.addEventListener('mouseup', stopScrolling);
+            scrollLeftBtn.addEventListener('mouseleave', stopScrolling);
+            scrollRightBtn.addEventListener('mouseup', stopScrolling);
+            scrollRightBtn.addEventListener('mouseleave', stopScrolling);
+            
+            // 当用户手动滚动时，暂停自动滚动
+            if(awardsContainer) {
+                let isScrolling = false;
                 
-                <article class="project-item">
-                    <div class="project-content">
-                        <h3 class="project-title clickable-title" onclick="handleAttachmentClick('101.jpg', '招商银行第9季数字金融训练营')">招商银行第9季数字金融训练营</h3>
-                        <p class="project-date">2025.04 — 2025.05</p>
-                        <p class="project-description">
-                            项目背景：基于LLaMA-Factory框架与LoRA方法微调Deepseek-Coder<br>
-                            项目任务：优化基础模型在Java代码补全（FIM）场景下的能力准确率。<br>
-                            荣获招商银行第9季数字金融训练营·AI赛道·全国第51名。
-                        </p>
-                    </div>
-                </article>
-                
-                <article class="project-item">
-                    <div class="project-content">
-                        <h3 class="project-title">中国移动"梧桐鸿鹄"2025年研学夏令营</h3>
-                        <p class="project-date">2025.06 — 2025.08</p>
-                        <p class="project-description">
-                            项目背景：复杂手写体签名识别能力研究，如复杂连笔、非规范字迹识别。<br>
-                            项目任务：基于全场景文字识别大模型PP-OCRv5，形成准确性分析报告。
-                        </p>
-                    </div>
-                </article>
-                
-                <article class="project-item">
-                    <div class="project-content">
-                        <h3 class="project-title">基于深度学习的遥感影像变化检测系统</h3>
-                        <p class="project-date">2023.11 — 2024.06</p>
-                        <p class="project-description">
-                            集成SNUNet-CD与P2V-CD双模型优势，提升变化检测精度与泛化能力。<br>
-                            基于Flask 搭建轻量化RESTful API接口，实现前后端分离与实时处理。<br>
-                            实现高精度遥感影像变化检测，取得软件著作权认证（2024SR0578273）。
-                        </p>
-                    </div>
-                </article>
-                
-                <article class="project-item">
-                    <div class="project-content">
-                        <h3 class="project-title">辽宁省社会科学基金项目</h3>
-                        <p class="project-date">2023.10 — 2024.03</p>
-                        <p class="project-description">
-                            项目主题：历史虚无主义思潮对高校思想政治理论课的影响与对策研究<br>
-                            主要负责：数据处理分析及其可视化（批准号：L17BKS003）。
-                        </p>
-                    </div>
-                </article>
-            </section>
-        </div>
-    </div>
+                // 监听滚动事件
+                awardsContainer.addEventListener('scroll', function() {
+                    // 清除之前的定时器
+                    clearTimeout(isScrolling);
+                    
+                    // 暂停动画
+                    if(awardsTrack) {
+                        awardsTrack.style.animationPlayState = 'paused';
+                    }
+                    
+                    // 设置一个定时器，如果用户停止滚动一段时间后恢复自动滚动
+                    isScrolling = setTimeout(function() {
+                        if(awardsTrack) {
+                            awardsTrack.style.animationPlayState = 'running';
+                        }
+                    }, 3000); // 3秒后恢复自动滚动
+                    
+                    // 实现无缝滚动：检测到滚动到末尾时，瞬间跳转到中间的相同内容
+                    const scrollLeft = awardsContainer.scrollLeft;
+                    const maxScrollLeft = awardsContainer.scrollWidth - awardsContainer.clientWidth;
+                    
+                    // 如果接近末尾（前一组内容的末尾）
+                    if (scrollLeft >= maxScrollLeft * 2/3 && scrollLeft > 0) { // 大约在2/3位置，接近第三组内容
+                        // 跳转到对应的第一组内容的相同位置
+                        if (scrollLeft > maxScrollLeft / 3) { // 在第二或第三组内容
+                            const originalPosition = scrollLeft % (maxScrollLeft / 3);
+                            setTimeout(() => {
+                                awardsContainer.scrollLeft = originalPosition;
+                            }, 0);
+                        }
+                    }
+                });
+            }
+        });
+        
+        // 显示奖项大图
+        function showAwardImage(imgElement) {
+            const modal = document.getElementById('awardModal');
+            const modalImg = document.getElementById('modalImage');
+            const captionText = document.getElementById('modalCaption');
+            
+            modal.style.display = "block";
+            modalImg.src = imgElement.src;
+            captionText.innerHTML = imgElement.alt;
+            document.body.style.overflow = 'hidden';
+            // 移除背景虚化效果
+            // document.body.classList.add('blurred');
+        }
+        
+        // 关闭模态框
+        function closeAwardModal() {
+            const modal = document.getElementById('awardModal');
+            modal.style.display = "none";
+            document.body.style.overflow = 'auto';
+            // 移除背景虚化效果
+            // document.body.classList.remove('blurred');
+        }
+        
+        // 点击模态框外部关闭
+        window.onclick = function(event) {
+            const modal = document.getElementById('awardModal');
+            if (event.target == modal) {
+                closeAwardModal();
+            }
+        };
+        
+        // ESC键关闭模态框
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeAwardModal();
+            }
+        });
+    </script>
 </body>
 </html>
