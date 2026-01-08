@@ -259,7 +259,12 @@
             scrollbar-width: thin; /* Firefox */
             scrollbar-color: #0057b7 #e0e0e0; /* Firefox */
             scroll-behavior: smooth;
+            cursor: grab;
             position: relative;
+        }
+        
+        .awards-container:active {
+            cursor: grabbing;
         }
         
         /* Webkit browsers (Chrome, Safari) 滚动条样式 */
@@ -284,21 +289,6 @@
         .awards-track {
             display: flex;
             gap: 40px;
-            width: 300%; /* 设置为300%以容纳三组内容 */
-            animation: scroll 30s linear infinite; /* 添加滚动动画 */
-        }
-        
-        .awards-track:hover {
-            animation-play-state: paused; /* 悬停时暂停动画 */
-        }
-        
-        @keyframes scroll {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-33.333%); /* 滚动到三分之一的位置，即第二组内容的开始 */
-            }
         }
         
         .award-card {
@@ -688,8 +678,8 @@
             }
 
             .award-card {
-                min-width: 25%;
-                width: 25%;
+                min-width: 75%;
+                /* width: 36%; */
             }
             
             .blog-title,
@@ -851,70 +841,33 @@
         
         .awards-container {
             flex: 1;
-            overflow: hidden;
+            overflow-x: auto;
             padding: 10px 0;
-            position: relative;
+            scrollbar-width: thin;
+            scrollbar-color: #0057b7 #e0e0e0;
         }
         
-        .scroll-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            background-color: rgba(255, 255, 255, 0.9);
-            border: 1px solid #e0e0e0;
-            font-size: 24px;
-            color: #0057b7;
-            cursor: pointer;
-            z-index: 10;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 10px;
-            backdrop-filter: blur(5px);
+        .awards-container::-webkit-scrollbar {
+            height: 8px;
         }
         
-        .awards-section:hover .scroll-btn {
-            opacity: 1;
+        .awards-container::-webkit-scrollbar-track {
+            background: #e0e0e0;
+            border-radius: 4px;
         }
         
-        .scroll-left {
-            left: 0;
+        .awards-container::-webkit-scrollbar-thumb {
+            background: #0057b7;
+            border-radius: 4px;
         }
         
-        .scroll-right {
-            right: 0;
+        .awards-container::-webkit-scrollbar-thumb:hover {
+            background: #00a8e8;
         }
         
-        .scroll-btn:hover {
-            background-color: white;
-            color: #00a8e8;
-        }
-        
-        /* 实现真正的无缝滚动 */
         .awards-track {
             display: flex;
             gap: 40px;
-            min-width: 200%; /* 创建足够空间用于无缝循环 */
-            animation: scroll 30s linear infinite; /* 滚动速度调整为30秒 */
-        }
-        
-        .awards-track:hover {
-            animation-play-state: paused;
-        }
-        
-        @keyframes scroll {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-50%); /* 滚动到一半的位置，即复制内容的开始 */
-            }
         }
     </style>
 </head>
@@ -977,10 +930,9 @@
             <section class="awards-section">
                 <h2 class="section-title">荣誉奖项</h2>
                 <div class="awards-container-wrapper">
-                    <button class="scroll-btn scroll-left" id="scrollLeftBtn">‹</button>
                     <div class="awards-container" id="awardsContainer">
                         <div class="awards-track">
-                            <!-- 第一组奖项卡片 -->
+                            <!-- 奖项卡片 -->
                             <div class="award-card">
                                 <div class="award-image-wrapper">
                                     <img src="./Award/辽宁省优秀毕业生证书.png" alt="辽宁省优秀毕业生证书" class="award-image" onclick="showAwardImage(this)">
@@ -1022,9 +974,16 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="award-card">
+                                <div class="award-image-wrapper">
+                                    <img src="./Award/招商银行数字金融训练营.jpg" alt="招商银行数字金融训练营" class="award-image" onclick="showAwardImage(this)">
+                                    <div class="award-overlay">
+                                        <p class="award-description">招商银行数字金融训练营</p>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <button class="scroll-btn scroll-right" id="scrollRightBtn">›</button>
                 </div>
             </section>
             
@@ -1051,7 +1010,7 @@
                 
                 <article class="project-item">
                     <div class="project-content">
-                        <h3 class="project-title clickable-title" onclick="handleAttachmentClick('101.jpg', '招商银行第9季数字金融训练营')">招商银行第9季数字金融训练营</h3>
+                        <h3 class="project-title clickable-title" </h3>
                         <p class="project-date">2025.04 — 2025.05</p>
                         <p class="project-description">
                             项目背景：基于LLaMA-Factory框架与LoRA方法微调Deepseek-Coder<br>
@@ -1178,122 +1137,39 @@
             }
         }
         
-        function handleAttachmentClick(attachmentPath, projectName) {
-            // 获取文件扩展名以确定文件类型
-            const fileExtension = attachmentPath.split('.').pop().toLowerCase();
-            let fileType = '文件';
-            let actionText = '打开';
+        // function handleAttachmentClick(attachmentPath, projectName) {
+        //     // 获取文件扩展名以确定文件类型
+        //     const fileExtension = attachmentPath.split('.').pop().toLowerCase();
+        //     let fileType = '文件';
+        //     let actionText = '打开';
             
-            if (fileExtension === 'pdf') {
-                fileType = 'PDF文档';
-                actionText = '查看';
-            } else if (['jpg', 'jpeg', 'png', 'gif', 'bmp'].includes(fileExtension)) {
-                fileType = '图片';
-                actionText = '查看';
-            }
+        //     if (fileExtension === 'pdf') {
+        //         fileType = 'PDF文档';
+        //         actionText = '查看';
+        //     } else if (['jpg', 'jpeg', 'png', 'gif', 'bmp'].includes(fileExtension)) {
+        //         fileType = '图片';
+        //         actionText = '查看';
+        //     }
             
-            const result = confirm(`是否要${actionText} ${projectName} 的相关证明材料？\n\n文件类型: ${fileType}\n文件名: ${attachmentPath}`);
-            if (result) {
-                // 构造附件URL（实际使用时请替换为真实路径）
-                const fullAttachmentUrl = attachmentPath;
+        //     const result = confirm(`是否要${actionText} ${projectName} 的相关证明材料？\n\n文件类型: ${fileType}\n文件名: ${attachmentPath}`);
+        //     if (result) {
+        //         // 构造附件URL（实际使用时请替换为真实路径）
+        //         const fullAttachmentUrl = attachmentPath;
                 
-                // 根据文件类型决定打开方式
-                if (fileExtension === 'pdf') {
-                    // PDF文件在新窗口中打开
-                    window.open(fullAttachmentUrl, '_blank');
-                } else if (['jpg', 'jpeg', 'png', 'gif', 'bmp'].includes(fileExtension)) {
-                    // 图片文件在新窗口中打开
-                    window.open(fullAttachmentUrl, '_blank');
-                } else {
-                    // 其他文件类型也尝试打开
-                    window.open(fullAttachmentUrl, '_blank');
-                }
-            }
-        }
+        //         // 根据文件类型决定打开方式
+        //         if (fileExtension === 'pdf') {
+        //             // PDF文件在新窗口中打开
+        //             window.open(fullAttachmentUrl, '_blank');
+        //         } else if (['jpg', 'jpeg', 'png', 'gif', 'bmp'].includes(fileExtension)) {
+        //             // 图片文件在新窗口中打开
+        //             window.open(fullAttachmentUrl, '_blank');
+        //         } else {
+        //             // 其他文件类型也尝试打开
+        //             window.open(fullAttachmentUrl, '_blank');
+        //         }
+        //     }
+        // }
         
-        // 初始化滚动速度
-        document.addEventListener('DOMContentLoaded', function() {
-            const awardsTrack = document.querySelector('.awards-track');
-            const awardsContainer = document.getElementById('awardsContainer');
-            const scrollLeftBtn = document.getElementById('scrollLeftBtn');
-            const scrollRightBtn = document.getElementById('scrollRightBtn');
-            
-            // 为了实现无缝滚动，复制原始内容
-            const originalContent = awardsTrack.innerHTML;
-            awardsTrack.innerHTML = originalContent + originalContent + originalContent; // 复制三次内容确保无缝滚动
-            
-            // 设置动画持续时间
-            if(awardsTrack) {
-                awardsTrack.style.animationDuration = '30s'; // 设置为30秒，让滚动更慢更平滑
-            }
-            
-            // 按钮滚动功能
-            let scrollInterval;
-            
-            // 向左滚动
-            scrollLeftBtn.addEventListener('mousedown', function() {
-                clearInterval(scrollInterval);
-                scrollInterval = setInterval(function() {
-                    awardsContainer.scrollBy({left: -31, behavior: 'smooth'}); // 调整滚动距离为31px
-                }, 20);
-            });
-            
-            // 向右滚动
-            scrollRightBtn.addEventListener('mousedown', function() {
-                clearInterval(scrollInterval);
-                scrollInterval = setInterval(function() {
-                    awardsContainer.scrollBy({left: 31, behavior: 'smooth'}); // 调整滚动距离为31px
-                }, 20);
-            });
-            
-            // 停止滚动（当鼠标按钮释放或离开按钮时）
-            function stopScrolling() {
-                clearInterval(scrollInterval);
-            }
-            
-            scrollLeftBtn.addEventListener('mouseup', stopScrolling);
-            scrollLeftBtn.addEventListener('mouseleave', stopScrolling);
-            scrollRightBtn.addEventListener('mouseup', stopScrolling);
-            scrollRightBtn.addEventListener('mouseleave', stopScrolling);
-            
-            // 当用户手动滚动时，暂停自动滚动
-            if(awardsContainer) {
-                let isScrolling = false;
-                
-                // 监听滚动事件
-                awardsContainer.addEventListener('scroll', function() {
-                    // 清除之前的定时器
-                    clearTimeout(isScrolling);
-                    
-                    // 暂停动画
-                    if(awardsTrack) {
-                        awardsTrack.style.animationPlayState = 'paused';
-                    }
-                    
-                    // 设置一个定时器，如果用户停止滚动一段时间后恢复自动滚动
-                    isScrolling = setTimeout(function() {
-                        if(awardsTrack) {
-                            awardsTrack.style.animationPlayState = 'running';
-                        }
-                    }, 3000); // 3秒后恢复自动滚动
-                    
-                    // 实现无缝滚动：检测到滚动到末尾时，瞬间跳转到中间的相同内容
-                    const scrollLeft = awardsContainer.scrollLeft;
-                    const maxScrollLeft = awardsContainer.scrollWidth - awardsContainer.clientWidth;
-                    
-                    // 如果接近末尾（前一组内容的末尾）
-                    if (scrollLeft >= maxScrollLeft * 2/3 && scrollLeft > 0) { // 大约在2/3位置，接近第三组内容
-                        // 跳转到对应的第一组内容的相同位置
-                        if (scrollLeft > maxScrollLeft / 3) { // 在第二或第三组内容
-                            const originalPosition = scrollLeft % (maxScrollLeft / 3);
-                            setTimeout(() => {
-                                awardsContainer.scrollLeft = originalPosition;
-                            }, 0);
-                        }
-                    }
-                });
-            }
-        });
         
         // 显示奖项大图
         function showAwardImage(imgElement) {
@@ -1332,6 +1208,167 @@
                 closeAwardModal();
             }
         });
+        
+        // 初始化滚动功能
+        document.addEventListener('DOMContentLoaded', function() {
+            const awardsTrack = document.querySelector('.awards-track');
+            const awardsContainer = document.getElementById('awardsContainer');
+            const scrollLeftBtn = document.getElementById('scrollLeftBtn');
+            const scrollRightBtn = document.getElementById('scrollRightBtn');
+            
+            // 设置初始方向（true为向右，false为向左）
+            let isMovingRight = true;
+            let autoScrollInterval;
+            let scrollTimeout;
+            let isManualScrolling = false; // 标记是否正在手动滚动
+            
+            // 设置动画持续时间
+            if(awardsTrack) {
+                awardsTrack.style.animationDuration = '15s';
+            }
+            
+            // 按钮滚动功能
+            let scrollInterval;
+            let isMouseDown = false; // 标记鼠标是否按下
+            
+            // 向左滚动 - 短按滚动100px，长按以1.5倍速度滚动150px
+            scrollLeftBtn.addEventListener('mousedown', function() {
+                isMouseDown = true;
+                clearInterval(scrollInterval);
+                // 长按持续滚动，使用1.5倍速度
+                scrollInterval = setInterval(function() {
+                    if(isMouseDown) {
+                        awardsContainer.scrollBy({left: -150, behavior: 'smooth'}); // 长按使用150px滚动距离
+                    }
+                }, 20);
+            });
+            
+            // 向左滚动 - 短按功能，只滚动一次100px
+            scrollLeftBtn.addEventListener('click', function(e) {
+                // 如果不是长按（鼠标未按下），则执行短按滚动
+                if(!isMouseDown) {
+                    awardsContainer.scrollBy({left: -100, behavior: 'smooth'}); // 短按滚动100px
+                }
+                isMouseDown = false; // 重置状态
+            });
+            
+            // 向右滚动 - 短按滚动100px，长按以1.5倍速度滚动150px
+            scrollRightBtn.addEventListener('mousedown', function() {
+                isMouseDown = true;
+                clearInterval(scrollInterval);
+                // 长按持续滚动，使用1.5倍速度
+                scrollInterval = setInterval(function() {
+                    if(isMouseDown) {
+                        awardsContainer.scrollBy({left: 150, behavior: 'smooth'}); // 长按使用150px滚动距离
+                    }
+                }, 20);
+            });
+            
+            // 向右滚动 - 短按功能，只滚动一次100px
+            scrollRightBtn.addEventListener('click', function(e) {
+                // 如果不是长按（鼠标未按下），则执行短按滚动
+                if(!isMouseDown) {
+                    awardsContainer.scrollBy({left: 100, behavior: 'smooth'}); // 短按滚动100px
+                }
+                isMouseDown = false; // 重置状态
+            });
+            
+            // 停止滚动（当鼠标按钮释放或离开按钮时）
+            function stopScrolling() {
+                isMouseDown = false;
+                clearInterval(scrollInterval);
+            }
+            
+            scrollLeftBtn.addEventListener('mouseup', stopScrolling);
+            scrollLeftBtn.addEventListener('mouseleave', stopScrolling);
+            scrollRightBtn.addEventListener('mouseup', stopScrolling);
+            scrollRightBtn.addEventListener('mouseleave', stopScrolling);
+            
+            // 当用户手动滚动时，暂停自动滚动
+            if(awardsContainer) {
+                let isScrolling = false;
+                
+                // 监听滚动事件
+                awardsContainer.addEventListener('scroll', function() {
+                    // 清除之前的定时器
+                    clearTimeout(isScrolling);
+                    
+                    // 暂停动画
+                    if(awardsTrack) {
+                        awardsTrack.style.animationPlayState = 'paused';
+                    }
+                    
+                    // 设置一个定时器，如果用户停止滚动一段时间后恢复自动滚动
+                    isScrolling = setTimeout(function() {
+                        if(awardsTrack) {
+                            awardsTrack.style.animationPlayState = 'running';
+                        }
+                    }, 3000); // 3秒后恢复自动滚动
+                });
+            }
+            
+            // 实现正向滚动到末尾后等待3秒再逆向滚动的自动滚动功能
+            function startAutoScroll() {
+                // 清除之前的定时器
+                if(autoScrollInterval) clearInterval(autoScrollInterval);
+                if(scrollTimeout) clearTimeout(scrollTimeout);
+                
+                autoScrollInterval = setInterval(() => {
+                    if (!isManualScrolling && !isMouseDown) {
+                        // 获取当前滚动位置和最大滚动距离
+                        const maxScrollLeft = awardsContainer.scrollWidth - awardsContainer.clientWidth;
+                        
+                        if (isMovingRight) {
+                            // 正向滚动
+                            if (awardsContainer.scrollLeft < maxScrollLeft) {
+                                // 继续向右滚动
+                                awardsContainer.scrollBy({ left: 2, behavior: 'smooth' });
+                            } else {
+                                // 到达最右侧，等待3秒后改为反向
+                                clearInterval(autoScrollInterval);
+                                scrollTimeout = setTimeout(() => {
+                                    isMovingRight = false;
+                                    startAutoScroll();
+                                }, 3000);
+                            }
+                        } else {
+                            // 逆向滚动
+                            if (awardsContainer.scrollLeft > 0) {
+                                // 继续向左滚动
+                                awardsContainer.scrollBy({ left: -2, behavior: 'smooth' });
+                            } else {
+                                // 到达最左侧，等待3秒后改为正向
+                                clearInterval(autoScrollInterval);
+                                scrollTimeout = setTimeout(() => {
+                                    isMovingRight = true;
+                                    startAutoScroll();
+                                }, 3000);
+                            }
+                        }
+                    }
+                }, 30); // 每30毫秒滚动一次
+            }
+            
+            // 开始自动滚动
+            startAutoScroll();
+            
+            // 监听手动滚动，暂停自动滚动
+            awardsContainer.addEventListener('scroll', function() {
+                isManualScrolling = true;
+                
+                // 清除之前的定时器
+                clearTimeout(scrollTimeout);
+                clearInterval(autoScrollInterval);
+                
+                // 设置定时器，当用户停止手动滚动3秒后重新开始自动滚动
+                scrollTimeout = setTimeout(() => {
+                    isManualScrolling = false;
+                    // 重新开始自动滚动
+                    startAutoScroll();
+                }, 3000);
+            });
+        });
+        
     </script>
 </body>
 </html>
